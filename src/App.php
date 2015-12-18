@@ -6,7 +6,6 @@ use \Slim\App as FrontController;
 
 final class App
 {
-
     use Config;
 
     const CONFIG_PATH = '/../cfg/%s.ini';
@@ -23,6 +22,7 @@ final class App
     {
         $env = $this->getSystemEnvironment();
         $this->setEnvironment($env);
+        $this->conf = $this->getConfig($this->getConfigFilePath());
         $this->app = new FrontController();
     }
 

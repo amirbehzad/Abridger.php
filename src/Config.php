@@ -4,7 +4,7 @@ namespace Abridger;
 
 trait Config
 {
-    function getConfig($filepath)
+    protected function getConfig($filepath)
     {
         if (! is_readable($filepath)) {
             throw new \Exception(sprintf('Configuration file (%s) not found', $filepath));
