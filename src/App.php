@@ -25,7 +25,7 @@ final class App
     public function setEnvironment($env)
     {
         if (! in_array($env, ['test', 'development', 'production'])) {
-            throw new \InvalidArgumentException('Invalid value given for environment variable');
+            throw new \UnexpectedValueException('Invalid value given for environment variable');
         }
         $this->env = $env;
         return true;

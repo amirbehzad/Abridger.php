@@ -18,9 +18,9 @@ class AppTest extends \PHPUnit_Framework_TestCase
 
     public function testSetEnvironment()
     {
-        $this->setExpectedException('InvalidArgumentException');
+        $this->setExpectedException('UnexpectedValueException');
         $this->app->setEnvironment('');
-        $this->setExpectedException('InvalidArgumentException');
+        $this->setExpectedException('UnexpectedValueException');
         $this->app->setEnvironment('staging');
         $this->assertTrue($this->app->setEnvironment('test'));
     }
