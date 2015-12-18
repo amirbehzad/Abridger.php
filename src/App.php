@@ -13,17 +13,17 @@ final class App
     protected $app;
     protected $env;
 
-    protected function getSystemEnvironment()
-    {
-        return strtolower(getenv(strtoupper(__NAMESPACE__)));
-    }
-
     public function __construct()
     {
         $env = $this->getSystemEnvironment();
         $this->setEnvironment($env);
         $this->conf = $this->getConfig($this->getConfigFilePath());
         $this->app = new FrontController();
+    }
+
+    protected function getSystemEnvironment()
+    {
+        return strtolower(getenv(strtoupper(__NAMESPACE__)));
     }
 
     public function setEnvironment($env)
@@ -40,7 +40,7 @@ final class App
         return $this->env;
     }
 
-    private function getConfigFilepath()
+    protected function getConfigFilepath()
     {
         return realpath(sprintf(__DIR__ . self::CONFIG_PATH, $this->getEnvironment()));
     }
