@@ -1,0 +1,1 @@
+# Abridger.php
