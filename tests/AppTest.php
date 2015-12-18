@@ -44,11 +44,4 @@ class AppTest extends \PHPUnit_Framework_TestCase
             $this->callPrivateMethod($this->app, 'getConfigFilePath')
         );
     }
-
-    public function testGetConfig()
-    {
-        $this->assertTrue(
-            is_array($this->callPrivateMethod($this->app, 'getConfig'))
-        );
-    }
 }

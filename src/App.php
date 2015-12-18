@@ -7,6 +7,8 @@ use \Slim\App as FrontController;
 final class App
 {
 
+    use Config;
+
     const CONFIG_PATH = '/../cfg/%s.ini';
 
     protected $app;
@@ -36,19 +38,6 @@ final class App
     public function getEnvironment()
     {
         return $this->env;
-    }
-
-    private function getConfig()
-    {
-        $conf_file = $this->getConfigFilepath();
-        if (! is_readable($conf_file)) {
-            throw new \Exception(sprintf('Configuration file (%s) not found', $conf_file));
-        }
-        $conf = parse_ini_file($conf_file, true);
-        if (! $conf) {
-            throw new \Exception('Unable to parse configuration data');
-        }
-        return $conf;
     }
 
     private function getConfigFilepath()
