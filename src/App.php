@@ -19,6 +19,12 @@ final class App
         $this->setEnvironment($env);
         $this->conf = $this->getConfig($this->getConfigFilePath());
         $this->app = new FrontController();
+
+        $this->setRoutes([
+          '/' =>        ['GET', ['\Abridger\Controller\Api', 'homepage']],
+          '/abridge' => ['POST', ['\Abridger\Controller\Api', 'abridge']],
+          '/{token}' => ['GET', ['\Abridger\Controller\Web', 'redirect']],
+        ]);
     }
 
     protected function getSystemEnvironment()
@@ -43,6 +49,18 @@ final class App
     protected function getConfigFilepath()
     {
         return realpath(sprintf(__DIR__ . self::CONFIG_PATH, $this->getEnvironment()));
+    }
+
+    public function setRoutes(array $routes)
+    {
+        foreach ($routes as $uri => $route) {
+            list($method, $callback) = $route;
+            list($controller, $action) = $callback;
+            $this->app->map([$method], $uri, function ($req, $res, $args) use ($controller, $action) {
+                return (new $controller($this, $req, $res, $args))->$action();
+            });
+        }
+        return true;
     }
 
     public function start()

@@ -9,4 +9,8 @@ class Web extends Controller
     public function redirect()
     {
     }
+
+    public function homepage()
+    {
+    }
 }
