@@ -19,12 +19,6 @@ final class App
         $this->setEnvironment($env);
         $this->conf = $this->getConfig($this->getConfigFilePath());
         $this->app = new FrontController();
-
-        $this->setRoutes([
-          '/' =>        ['GET', ['\Abridger\Controller\Api', 'homepage']],
-          '/abridge' => ['POST', ['\Abridger\Controller\Api', 'abridge']],
-          '/{token}' => ['GET', ['\Abridger\Controller\Web', 'redirect']],
-        ]);
     }
 
     protected function getSystemEnvironment()
@@ -65,6 +59,19 @@ final class App
 
     public function start()
     {
+        // establish a lazy connection to database
+        $this->app->getContainer()['DB'] = new DB(
+            $this->conf['database']['dsn'],
+            $this->conf['database']['username'],
+            $this->conf['database']['password']
+        );
+
+        $this->setRoutes([
+          '/' =>        ['GET', ['\Abridger\Controller\Web', 'homepage']],
+          '/abridge' => ['POST', ['\Abridger\Controller\Api', 'abridge']],
+          '/{token}' => ['GET', ['\Abridger\Controller\Web', 'redirect']],
+        ]);
+
         $this->app->run();
     }
 }
