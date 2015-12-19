@@ -4,7 +4,6 @@ namespace Abridger;
 
 abstract class Controller
 {
-
     protected $container;
     protected $req;
     protected $res;
@@ -18,17 +17,17 @@ abstract class Controller
         $this->args = $args;
     }
 
-    public function getParam($key, $default = null)
+    protected function getParam($key, $default = null)
     {
         return array_key_exists($key, $this->args) ? $this->args[$key] : $default;
     }
 
-    public function getRequest()
+    protected function getRequest()
     {
         return $this->req;
     }
 
-    public function getResponse()
+    protected function getResponse()
     {
         return $this->res;
     }
