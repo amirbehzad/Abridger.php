@@ -6,12 +6,15 @@ class DB
 {
 
     private static $db = null;
+    private static $dsn;
+    private static $username;
+    private static $password;
 
     public function __construct($dsn, $username, $password)
     {
-        $this->dsn = $dsn;
-        $this->username = $username;
-        $this->password = $password;
+        self::$dsn = $dsn;
+        self::$username = $username;
+        self::$password = $password;
     }
 
     private static function getConnection()
@@ -21,7 +24,10 @@ class DB
                 self::$dsn,
                 self::$username,
                 self::$password,
-                array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'")
+                array(
+                  \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES UTF8',
+                  \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                )
             );
         }
         return self::$db;
@@ -30,6 +36,6 @@ class DB
     public function __call($func, $args)
     {
         $dbh = self::getConnection();
-        return $dbh->$func($args);
+        return call_user_func_array([$dbh, $func], $args);
     }
 }
