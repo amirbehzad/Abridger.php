@@ -50,9 +50,13 @@ final class App
         foreach ($routes as $uri => $route) {
             list($method, $callback) = $route;
             list($controller, $action) = $callback;
-            $this->app->map([$method], $uri, function ($req, $res, $args) use ($controller, $action) {
-                return (new $controller($this, $req, $res, $args))->$action();
-            });
+            $this->app->map(
+                [$method],
+                $uri,
+                function ($req, $res, $args) use ($controller, $action) {
+                    return (new $controller($this, $req, $res, $args))->$action();
+                }
+            );
         }
         return true;
     }
