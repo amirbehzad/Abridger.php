@@ -66,7 +66,7 @@
               $('#result').text('ERROR: ' + response['message']).addClass('red').show();
           }
           else {
-              $('#result').text('Result: ' + location.hostname + '/' + response['data']).addClass('green').show();
+              $('#result').text('Result: http://' + location.hostname + '/' + response['data']).addClass('green').show();
           }
       }, 'json');
   });
