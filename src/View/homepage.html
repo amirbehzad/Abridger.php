@@ -1,20 +1,76 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script type="text/javascript">
-        $.ajax({
-            url: 'http://example.com/',
-            type: 'POST',
-            data: 'ID=1&Name=John&Age=10', // or $('#myform').serializeArray()
-            success: function() { alert('PUT completed'); }
-        });
-    </script>
+	<meta charset="utf-8">
+	<title>Abridger</title>
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/animate.css">
+	<link rel="stylesheet" href="/css/style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <style>
+  #result {
+    display:none;margin:0;padding:0;margin-bottom: 15px;
+  }
+  .red {
+    color: #f00;
+  }
+  .green {
+    color: #0c0;
+  }
+  </style>
 </head>
+
 <body>
-    <form method="post" action="/abridge">
-        <label for="url">URL: </label>
-        <input type="text" name="url" id="url" value="" />
-        <button type="Submit">Abridge It</button>
-    </form>
+	<div class="container">
+		<div class="top">
+			<h1 id="title" class="hidden"><span id="logo"><span>Abridger</span></span></h1>
+		</div>
+		<div class="login-box animated fadeInUp">
+			<div class="box-header">
+				<h2>Mindvally's URL Shortener</h2>
+			</div>
+
+      <form name="mainform" id="mainform" method="post" action="/abridge">
+    			<label for="url">Enter a URL below:	</label>
+    			<br/>
+    			<input type="text" id="url" name="url" size="40" maxlength="255" />
+          <p id="result"></p>
+    			<button type="submit" id="submit">Abridge It!</button>
+      </form>
+
+
+			<p class="small">&copy; 2015 AmirBehzad Eslami</p>
+
+		</div>
+	</div>
 </body>
+
+<script>
+	$(document).ready(function () {
+    	$('#logo').addClass('animated fadeInDown');
+    	$("input:text:visible:first").focus();
+	});
+	$('#username').focus(function() {
+		$('label[for="url"]').addClass('selected');
+	});
+	$('#username').blur(function() {
+		$('label[for="url"]').removeClass('selected');
+	});
+
+  $('#mainform').submit(function(event) {
+      $('#result').hide();
+      event.preventDefault();
+      $.post('/abridge', $(this).serialize(), function(response) {
+          if (! response['success']) {
+              $('#result').text('ERROR: ' + response['message']).addClass('red').show();
+          }
+          else {
+              $('#result').text('Result: ' + location.hostname + '/' + response['data']).addClass('green').show();
+          }
+      }, 'json');
+  });
+
+</script>
+
 </html>
