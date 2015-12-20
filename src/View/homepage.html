@@ -1,0 +1,20 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $.ajax({
+            url: 'http://example.com/',
+            type: 'POST',
+            data: 'ID=1&Name=John&Age=10', // or $('#myform').serializeArray()
+            success: function() { alert('PUT completed'); }
+        });
+    </script>
+</head>
+<body>
+    <form method="post" action="/abridge">
+        <label for="url">URL: </label>
+        <input type="text" name="url" id="url" value="" />
+        <button type="Submit">Abridge It</button>
+    </form>
+</body>
+</html>
