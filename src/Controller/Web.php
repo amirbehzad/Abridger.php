@@ -24,5 +24,6 @@ class Web extends Controller
 
     public function homepage()
     {
+        return $this->render(__FUNCTION__);
     }
 }
