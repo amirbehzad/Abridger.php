@@ -8,7 +8,7 @@ final class App
 {
     use Config;
 
-    const CONFIG_PATH = '/../cfg/%s.ini';
+    const CONFIG_PATH = '/../cfg/database.%s.ini';
 
     protected $app;
     protected $env;
@@ -65,9 +65,9 @@ final class App
     {
         // establish a lazy connection to database
         $this->app->getContainer()['DB'] = new DB(
-            $this->conf['database']['dsn'],
-            $this->conf['database']['username'],
-            $this->conf['database']['password']
+            $this->conf['pdo']['dsn'],
+            $this->conf['pdo']['user'],
+            $this->conf['pdo']['password']
         );
 
         $this->setRoutes([
