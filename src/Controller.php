@@ -19,6 +19,9 @@ abstract class Controller
 
     protected function getParam($key, $default = null)
     {
+        if (array_key_exists($key, $this->args)) {
+            return $this->args[$key];
+        }
         return trim($this->getRequest()->getParam($key, $default));
     }
 
@@ -35,5 +38,11 @@ abstract class Controller
     protected function getService($service)
     {
         return $this->container->get($service);
+    }
+
+    protected function render($view)
+    {
+        $html = file_get_contents(__DIR__ . '/View/' . $view . '.html');
+        return $this->getResponse()->write($html);
     }
 }
