@@ -9,7 +9,7 @@ Note: This project is my solution to [Mindvally](http://www.mindvalley.com)'s as
 ## Deploying to Heroku
 ```bash
 $ heroku apps:create
-$ git push heroku master
+$ git push heroku master:master
 $ heroku config:set ABRIDGER=production
 $ heroku logs
 ```
