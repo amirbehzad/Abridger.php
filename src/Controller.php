@@ -19,7 +19,7 @@ abstract class Controller
 
     protected function getParam($key, $default = null)
     {
-        return array_key_exists($key, $this->args) ? $this->args[$key] : $default;
+        return trim($this->getRequest()->getParam($key, $default));
     }
 
     protected function getRequest()
