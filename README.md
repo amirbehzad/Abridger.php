@@ -5,3 +5,12 @@ Abridger is a lightweight URL shortener service, written in PHP.
 A URL shortener is a web service that translates long URLs into abbreviated alternatives, and works based on URL redirection.
 
 Note: This project is my solution to [Mindvally](http://www.mindvalley.com)'s assignment for the Web Developer position.
+
+## Deploying to Heroku
+```bash
+$ heroku apps:create
+$ git push heroku master
+$ heroku config:set ABRIDGER=production
+$ heroku logs
+```
+Make sure you have created cfg/database.production.ini with the required settings.
