@@ -12,5 +12,4 @@ unit_test:
 	./vendor/bin/phpunit --stop-on-failure --stop-on-error --color=auto --columns max --bootstrap ./tests/bootstrap.php ./tests/
 
 migrate:
-	php dbup.phar init
 	php dbup.phar up --ini=./cfg/database.test.ini
