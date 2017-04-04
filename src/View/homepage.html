@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="utf-8">
 	<title>Abridger</title>
@@ -8,19 +7,21 @@
 	<link rel="stylesheet" href="/css/animate.css">
 	<link rel="stylesheet" href="/css/style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <style>
-  #result {
-    display:none;margin:0;padding:0;margin-bottom: 15px;
-  }
-  .red {
-    color: #f00;
-  }
-  .green {
-    color: #0c0;
-  }
-  </style>
+	<style>
+		#result {
+			display:none;
+			margin:0;
+			padding:0;
+			margin-bottom: 15px;
+		}
+		.red {
+			color: #f00;
+		}
+		.green {
+			color: #0c0;
+		}
+	</style>
 </head>
-
 <body>
 	<div class="container">
 		<div class="top">
@@ -28,19 +29,16 @@
 		</div>
 		<div class="login-box animated fadeInUp">
 			<div class="box-header">
-				<h2>Mindvalley's URL Shortener</h2>
+				<h2>URL Shortener</h2>
 			</div>
 
-      <form name="mainform" id="mainform" method="post" action="/abridge">
-    			<label for="url">Enter a URL below:	</label>
-    			<br/>
-    			<input type="text" id="url" name="url" size="40" maxlength="255" />
-          <p id="result"></p>
-    			<button type="submit" id="submit">Abridge It!</button>
-      </form>
-
-
-			<p class="small">&copy; 2015 AmirBehzad Eslami</p>
+			<form name="mainform" id="mainform" method="post" action="/abridge">
+				<label for="url">Enter a URL below:	</label>
+				<br/>
+				<input type="text" id="url" name="url" size="40" maxlength="255" />
+				<p id="result"></p>
+				<button type="submit" id="submit">Abridge It!</button>
+			</form>
 
 		</div>
 	</div>
@@ -48,29 +46,30 @@
 
 <script>
 	$(document).ready(function () {
-    	$('#logo').addClass('animated fadeInDown');
-    	$("input:text:visible:first").focus();
+		$('#logo').addClass('animated fadeInDown');
+		$("input:text:visible:first").focus();
 	});
+
 	$('#username').focus(function() {
 		$('label[for="url"]').addClass('selected');
 	});
+
 	$('#username').blur(function() {
 		$('label[for="url"]').removeClass('selected');
 	});
 
-  $('#mainform').submit(function(event) {
-      $('#result').hide();
-      event.preventDefault();
-      $.post('/abridge', $(this).serialize(), function(response) {
-          if (! response['success']) {
-              $('#result').text('ERROR: ' + response['message']).addClass('red').show();
-          }
-          else {
-              $('#result').text('Result: http://' + location.hostname + '/' + response['data']).addClass('green').show();
-          }
-      }, 'json');
-  });
-
+	$('#mainform').submit(function(event) {
+		$('#result').hide();
+		event.preventDefault();
+		$.post('/abridge', $(this).serialize(), function(response) {
+			if (! response['success']) {
+				$('#result').text('ERROR: ' + response['message']).addClass('red').show();
+			}
+			else {
+				$('#result').text('Result: http://' + location.hostname + (location.port ? ':' + location.port: '') + '/' + response['data']).addClass('green').show();
+			}
+		}, 'json');
+	});
 </script>
 
 </html>
